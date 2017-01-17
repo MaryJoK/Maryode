@@ -1,0 +1,39 @@
+class Text:
+    def loadString(self, textString):
+        self.rawtext = textString
+        self.text = self.convert(textString)
+        
+       
+def encrypt(letterKW, numberKW, outputFilename, args):
+    md = MonomeDinome(letterKW, numberKW)
+    t = Text()
+  
+    #KW means keyword
+    
+    
+    if len(args) == 0:
+        args.append("-")
+
+    if outputFilename:
+        outFile = open(outputFilename, "w")
+    else:
+        outFile = sys.stdout                 #print
+        
+    for arg in args:
+        if arg == "-":
+            text = sys.stdin.read()           #file like object of the sys class
+        else:
+            inFile = open(arg, "r")
+            text = inFile.read()
+            inFile.close()
+        
+        t.loadString(text)
+        ct = md.encrypt(t)
+        outFile.write(str(ct))
+
+    outFile.write("\n")
+    
+    if outputFilename:
+        outFile.close()
+       
+       
