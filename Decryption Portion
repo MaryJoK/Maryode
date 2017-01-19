@@ -1,0 +1,48 @@
+class Text:
+  def __init__(self, filterFunc, filename = 0):
+        self.filterFunc = filterFunc
+        if filename:
+            self.load(filename)
+
+  def convert(self, txt):
+        rval = ""
+        for c in txt.upper():
+            if self.filterFunc(c):
+                rval += c
+        return rval 
+        
+def isalpha(c):
+    return c.isalpha()
+
+def isdigit(c):
+    return c.isdigit()
+    
+def decrypt(letterkw, numberkw, outputFilename, args):
+    md = MonomeDinome(letterkw, numberkw)
+    ct = Text(isdigit)
+    
+    if len(args) == 0:
+        args.append("-")
+
+    if outputFilename:
+        outFile = open(outputFilename, "w")
+    else:
+        outFile = sys.stdout
+        
+    for arg in args:
+        if arg == "-":
+            text = sys.stdin.read()
+        else:
+            inFile = open(arg, "r")
+            text = inFile.read()
+            inFile.close()
+        
+        ct.loadString(text)
+        pt = md.decrypt(ct)
+        outFile.write(str(pt))
+
+    outFile.write("\n")
+    
+    if outputFilename:
+        outFile.close()
+            
