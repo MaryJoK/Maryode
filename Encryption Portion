@@ -17,7 +17,7 @@ def encrypt(letterKW, numberKW, outputFilename, args):
     if outputFilename:
         outFile = open(outputFilename, "w")
     else:
-        outFile = sys.stdout                 #print
+        print outFile 
         
     for arg in args:
         if arg == "-":
