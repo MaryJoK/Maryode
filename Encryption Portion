@@ -21,6 +21,7 @@ def encrypt(letterKW, numberKW, outputFilename, args):
         
     for arg in args:
         if arg == "-":
+            #read sys
             text = sys.stdin.read()           #file like object of the sys class
         else:
             inFile = open(arg, "r")
@@ -37,4 +38,5 @@ def encrypt(letterKW, numberKW, outputFilename, args):
         outFile.close()
        
        
+ 
  
